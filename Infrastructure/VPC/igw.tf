@@ -4,7 +4,7 @@ resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this[0].id
 
   tags = {
-    Name = var.vpc_name
+    Name        = var.vpc_name
     Environment = var.env
   }
 }

@@ -1,10 +1,10 @@
 variable "env" {
-  type = string
+  type    = string
   default = "dev"
 }
 
 variable "create_sg" {
-  type = bool
+  type    = bool
   default = false
 }
 

@@ -51,7 +51,7 @@ resource "aws_security_group" "this" {
   }
 
   tags = {
-    Name = local.aws_sg_name
+    Name        = local.aws_sg_name
     environment = var.env
   }
 }

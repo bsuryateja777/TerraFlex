@@ -1,12 +1,12 @@
 variable "env" {
-  default = "dev"
+  default     = "dev"
   description = "This is the environment."
-  type = string
+  type        = string
 }
 
 variable "project_name" {
   description = "This is the local project name."
-  type = string
+  type        = string
 }
 
 
@@ -15,15 +15,15 @@ variable "project_name" {
 # S3 Bucket Toggles & Info
 # ----------------------------
 variable "create_s3_bucket" {
-  default = false
+  default     = false
   description = "True to create a s3 bucket."
-  type = bool
+  type        = bool
 }
 
 variable "custom_s3_bucket_name" {
-  default = null
+  default     = null
   description = "This is the custom name for s3 bucket."
-  type = string
+  type        = string
 }
 
 
@@ -39,7 +39,7 @@ variable "create_vpc" {
 
 variable "custom_vpc_name" {
   default = null
-  type = string
+  type    = string
 }
 
 variable "vpc_cidr" {
@@ -48,8 +48,8 @@ variable "vpc_cidr" {
 }
 
 variable "azs" {
-  type = list(string)
-  default = [ "east-us-2a", "east-us-2b" ]
+  type    = list(string)
+  default = ["east-us-2a", "east-us-2b"]
 }
 
 # ------------------------
@@ -113,10 +113,11 @@ variable "create_route_tables" {
 # Security-groups Toggles & Info
 # ------------------------------------
 variable "create_sg" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "custom_sg_name" {
-  type = string
+  default = null
+  type    = string
 }

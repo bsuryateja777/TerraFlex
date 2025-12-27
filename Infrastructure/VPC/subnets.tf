@@ -11,7 +11,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = local.aws_pb_sub_name
+    Name        = local.aws_pb_sub_name
     Environment = var.env
   }
 }
@@ -27,7 +27,7 @@ resource "aws_subnet" "private" {
   availability_zone = var.azs[count.index]
 
   tags = {
-    Name = local.aws_pv_sub_name
+    Name        = local.aws_pv_sub_name
     Environment = var.env
   }
 }
@@ -43,7 +43,7 @@ resource "aws_subnet" "intra" {
   availability_zone = var.azs[count.index]
 
   tags = {
-    Name = local.aws_in_sub_name
+    Name        = local.aws_in_sub_name
     Environment = var.env
   }
 }

@@ -1,5 +1,5 @@
 variable "env" {
-  type = string  
+  type    = string
   default = "dev"
 }
 
@@ -18,8 +18,8 @@ variable "vpc_cidr" {
 }
 
 variable "azs" {
-  type = list(string)
-  default = [ "east-us-2a", "east-us-2b" ]
+  type    = list(string)
+  default = ["east-us-2a", "east-us-2b"]
 }
 
 # ------------------------
