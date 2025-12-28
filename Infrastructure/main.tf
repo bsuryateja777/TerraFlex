@@ -38,3 +38,24 @@ module "sg" {
   sg_name   = var.custom_sg_name != null && var.custom_sg_name != "" ? var.custom_sg_name : var.project_name
   vpc_id    = module.vpc.vpc_id
 }
+
+module "keypair" {
+  source = "./KEY-PAIR"
+  
+  project_name   = var.project_name
+}
+
+module "ec2" {
+  source = "./EC2"
+
+  env = var.env
+
+  create_ec2_instance = var.create_ec2
+  ec2_instance_name = var.custom_ec2_instance_name != null && var.custom_ec2_instance_name != "" ? var.custom_ec2_instance_name : var.project_name
+  ami_id = local.ec2_ami_id
+  ec2_instance_type = var.ec2_instance_type
+  subnet_id = module.vpc.public_subnet_ids[0]
+  security_group_ids = [module.sg.security_group_id]
+  key_name           = module.keypair.key_name
+  associate_public_ip = var.ec2_public_ip
+}

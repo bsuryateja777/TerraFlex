@@ -121,3 +121,60 @@ variable "custom_sg_name" {
   default = null
   type    = string
 }
+
+
+
+# ------------------------------------
+# EC2 Toggles & Info
+# ------------------------------------
+variable "create_ec2" {
+  default = false
+  type = bool
+}
+
+variable "custom_ec2_instance_name" {
+  description = "Name tag for EC2 instance"
+  type        = string
+}
+
+variable "ami_id" {
+  description = "AMI ID"
+  type        = string
+}
+
+variable "ec2_instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t3.small"
+}
+
+variable "ec2_os_type" {
+  description = "Defines type of OS in EC2."
+  default = "linux"
+  type = string
+}
+
+variable "linux_ami" {
+  default = "ami-00e428798e77d38d9"
+  type = string
+}
+
+variable "windows_ami" {
+  default = "ami-013e43c5ba6d06126"
+  type = string
+}
+
+variable "mac_ami" {
+  default = "ami-05cfe9e308d1d84af"
+  type = string
+}
+
+variable "key_name" {
+  type = string
+  description = "SSH key pair."
+}
+
+variable "ec2_public_ip" {
+  type = bool
+  default = true
+}
