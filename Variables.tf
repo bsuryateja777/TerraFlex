@@ -12,6 +12,6 @@ variable "AWS_SECRET_KEY" {
 
 variable "aws_REGION" {
   type        = string
-  default     = "east-us-2"
+  default     = "us-east-2"
   description = "This variable lets you define the region for your resources."
 }
