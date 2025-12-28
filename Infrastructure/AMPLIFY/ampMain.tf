@@ -27,7 +27,7 @@ resource "aws_amplify_branch" "this" {
 
   count = var.create_amplify_app ? 1 : 0
 
-  app_id      = aws_amplify_app.this[0].id
+  app_id      = aws_amplify_app.this[count.index].id
   branch_name = var.github_branch
 
   enable_auto_build = true
