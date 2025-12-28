@@ -15,3 +15,9 @@ variable "aws_REGION" {
   default     = "us-east-2"
   description = "This variable lets you define the region for your resources."
 }
+
+variable "github_token" {
+  type = string
+  description = "Personal access token for rentease app."
+  sensitive = true
+}

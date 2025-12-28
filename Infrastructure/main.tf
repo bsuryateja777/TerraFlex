@@ -59,3 +59,14 @@ module "ec2" {
   key_name           = module.keypair.key_name
   associate_public_ip = var.ec2_public_ip
 }
+
+module "amplify" {
+  source = "./AMPLIFY"
+
+  env = var.env
+
+  create_amplify_app = var.create_amplify_app
+  app_name = var.custom_amplify_app_name != null && var.custom_amplify_app_name != "" ? var.custom_amplify_app_name : var.project_name
+  github_token = var.github_token
+
+}

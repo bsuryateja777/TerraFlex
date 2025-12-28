@@ -173,5 +173,25 @@ variable "key_name" {
 
 variable "ec2_public_ip" {
   type = bool
-  default = true
+  default = false
+}
+
+
+# ------------------------------------
+# AMPLIFY Toggles & Info
+# ------------------------------------
+
+variable "create_amplify_app" {
+  type = bool
+  default = false
+}
+
+variable "custom_amplify_app_name" {
+  type = string
+  default = null
+}
+
+variable "github_token" {
+  type = string
+  default = null
 }

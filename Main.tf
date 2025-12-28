@@ -21,5 +21,9 @@ module "dev-flexing" {
   create_sg = true
 
   create_ec2 = true
+  ec2_public_ip = true
+
+  create_amplify_app = true
+  custom_amplify_app_name = ""
 
 }
