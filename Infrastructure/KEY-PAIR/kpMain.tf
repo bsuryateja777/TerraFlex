@@ -9,7 +9,7 @@ resource "aws_key_pair" "this" {
 }
 
 resource "local_file" "ec2_private_key" {
-  content         = module.keypair.private_key_pem
+  content         = tls_private_key.this.private_key_pem
   filename        = "${path.module}/keys/${var.project_name}.pem"
   file_permission = "0400"
 }

@@ -19,4 +19,7 @@ module "dev-flexing" {
   # intra_subnet_cidrs = ["10.0.201.0/24"]
 
   create_sg = true
+
+  create_ec2 = true
+
 }

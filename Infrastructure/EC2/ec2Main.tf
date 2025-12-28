@@ -1,4 +1,4 @@
-resource "aws_instance" "example" {
+resource "aws_instance" "this" {
 
   count = var.create_ec2_instance ? 1 : 0
 

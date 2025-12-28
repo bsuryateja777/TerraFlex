@@ -133,12 +133,8 @@ variable "create_ec2" {
 }
 
 variable "custom_ec2_instance_name" {
+  default     = null
   description = "Name tag for EC2 instance"
-  type        = string
-}
-
-variable "ami_id" {
-  description = "AMI ID"
   type        = string
 }
 
@@ -172,6 +168,7 @@ variable "mac_ami" {
 variable "key_name" {
   type = string
   description = "SSH key pair."
+  default = null
 }
 
 variable "ec2_public_ip" {
