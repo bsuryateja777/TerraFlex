@@ -35,5 +35,6 @@ resource "aws_amplify_branch" "this" {
 
   environment_variables = {
     NODE_ENV = "production"
+    VITE_API_BASE_URL = "http://rentease-app.ddns.net:4000"
   }
 }
