@@ -49,7 +49,7 @@ variable "vpc_cidr" {
 
 variable "azs" {
   type    = list(string)
-  default = ["east-us-2a", "east-us-2b"]
+  default = ["us-east-2a", "us-east-2b"]
 }
 
 # ------------------------

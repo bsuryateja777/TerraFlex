@@ -24,6 +24,7 @@ module "dev-flexing" {
   ec2_public_ip = true
 
   create_amplify_app = true
+  github_token = var.github_token
   custom_amplify_app_name = ""
 
 }
