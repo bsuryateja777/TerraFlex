@@ -15,5 +15,5 @@ variable "create_acm" {
 variable "domain_name" {
   description = "Main domain name for frontend and backend"
   type        = string
-  default     = "rentease-app.ddns.com"
+  default     = "rentease-app.ddns.net"
 }
