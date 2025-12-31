@@ -27,4 +27,10 @@ module "dev-flexing" {
   github_token = var.github_token
   custom_amplify_app_name = ""
 
+  create_acm = true
+  custom_acm_name = ""
+
+  create_alb = true
+  custom_alb_name = ""
+
 }

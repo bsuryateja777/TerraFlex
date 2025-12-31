@@ -195,3 +195,33 @@ variable "github_token" {
   type = string
   default = null
 }
+
+
+# ------------------------------------
+# ACM Toggles & Info
+# ------------------------------------
+
+variable "create_acm" {
+  default = false
+  type = bool
+}
+
+variable "custom_acm_name" {
+  type = string
+  default = null
+}
+
+
+# ------------------------------------
+# ALB Toggles & Info
+# ------------------------------------
+
+variable "create_alb" {
+  type = bool
+  default = false
+}
+
+variable "custom_alb_name" {
+  type = string
+  default = null
+}
