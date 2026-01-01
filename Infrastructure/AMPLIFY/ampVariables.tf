@@ -4,21 +4,21 @@ variable "env" {
 }
 
 variable "create_amplify_app" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "app_name" {
-  type    = string
+  type = string
 }
 
 variable "github_repo" {
-  type = string
+  type    = string
   default = "https://github.com/bsuryateja777/RentEase.git"
 }
 
 variable "github_branch" {
-  type = string
+  type    = string
   default = "amplifytf"
 }
 

@@ -17,7 +17,7 @@ variable "aws_REGION" {
 }
 
 variable "github_token" {
-  type = string
+  type        = string
   description = "Personal access token for rentease app."
-  sensitive = true
+  sensitive   = true
 }

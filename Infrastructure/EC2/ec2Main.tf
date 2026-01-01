@@ -10,7 +10,7 @@ resource "aws_instance" "this" {
   associate_public_ip_address = var.associate_public_ip
 
   tags = {
-    Name = local.aws_ec2_instance_name
+    Name        = local.aws_ec2_instance_name
     Environment = var.env
   }
 }

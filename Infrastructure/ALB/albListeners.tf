@@ -1,6 +1,6 @@
 resource "aws_lb_listener" "http" {
   count             = var.create_alb ? 1 : 0
-  load_balancer_arn = aws_lb.this[0].arn
+  load_balancer_arn = aws_lb.alb[0].arn
   port              = 80
   protocol          = "HTTP"
 
@@ -17,10 +17,10 @@ resource "aws_lb_listener" "http" {
 
 resource "aws_lb_listener" "https" {
   count             = var.create_alb ? 1 : 0
-  load_balancer_arn = aws_lb.this[0].arn
+  load_balancer_arn = aws_lb.alb[0].arn
   port              = 443
   protocol          = "HTTPS"
-  certificate_arn  = var.certificate_arn
+  certificate_arn   = var.certificate_arn
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 
   default_action {

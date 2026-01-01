@@ -1,4 +1,4 @@
-resource "aws_lb" "this" {
+resource "aws_lb" "alb" {
   count              = var.create_alb ? 1 : 0
   name               = local.aws_alb_name
   internal           = false
@@ -7,7 +7,7 @@ resource "aws_lb" "this" {
   subnets            = var.public_subnet_ids
 
   tags = {
-    Name = local.aws_alb_name
+    Name        = local.aws_alb_name
     Environment = var.env
   }
 }

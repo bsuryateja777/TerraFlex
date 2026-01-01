@@ -129,7 +129,7 @@ variable "custom_sg_name" {
 # ------------------------------------
 variable "create_ec2" {
   default = false
-  type = bool
+  type    = bool
 }
 
 variable "custom_ec2_instance_name" {
@@ -146,33 +146,33 @@ variable "ec2_instance_type" {
 
 variable "ec2_os_type" {
   description = "Defines type of OS in EC2."
-  default = "linux"
-  type = string
+  default     = "linux"
+  type        = string
 }
 
 variable "linux_ami" {
   default = "ami-00e428798e77d38d9"
-  type = string
+  type    = string
 }
 
 variable "windows_ami" {
   default = "ami-013e43c5ba6d06126"
-  type = string
+  type    = string
 }
 
 variable "mac_ami" {
   default = "ami-05cfe9e308d1d84af"
-  type = string
+  type    = string
 }
 
 variable "key_name" {
-  type = string
+  type        = string
   description = "SSH key pair."
-  default = null
+  default     = null
 }
 
 variable "ec2_public_ip" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -182,17 +182,17 @@ variable "ec2_public_ip" {
 # ------------------------------------
 
 variable "create_amplify_app" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "custom_amplify_app_name" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "github_token" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -203,11 +203,11 @@ variable "github_token" {
 
 variable "create_acm" {
   default = false
-  type = bool
+  type    = bool
 }
 
 variable "custom_acm_name" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -217,11 +217,35 @@ variable "custom_acm_name" {
 # ------------------------------------
 
 variable "create_alb" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "custom_alb_name" {
-  type = string
+  type    = string
   default = null
+}
+
+
+# ------------------------------------
+# NLB Toggles & Info
+# ------------------------------------
+
+variable "create_nlb" {
+  type    = bool
+  default = false
+}
+
+variable "custom_nlb_name" {
+  default = null
+  type    = string
+
+}
+
+variable "nlb_enable_cross_zone" {
+  default = true
+}
+
+variable "nlb_deletion_protection" {
+  default = false
 }

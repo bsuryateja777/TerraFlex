@@ -93,5 +93,19 @@ module "alb" {
   frontend_instance_id = module.amplify.amplify_app_id
   backend_instance_id = module.ec2.instance_id
   certificate_arn = module.certificate.certificate_arn
+}
 
+
+module "nlb" {
+  source = "./nlb"
+
+  env = var.env
+
+  create_nlb = var.create_nlb && var.create_ec2 && var.create_amplify_app
+  nlb_name = var.custom_nlb_name != null && var.custom_nlb_name != "" ? var.custom_nlb_name : var.project_name
+  vpc_id = module.vpc.vpc_id
+  subnet_ids = module.vpc.public_subnet_ids
+  instance_ids = module.ec2.instance_id
+  nlb_enable_cross_zone = var.nlb_enable_cross_zone
+  nlb_deletion_protection = var.nlb_deletion_protection
 }

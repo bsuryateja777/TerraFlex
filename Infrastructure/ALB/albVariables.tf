@@ -1,6 +1,6 @@
 variable "env" {
   default = "dev"
-  type = string
+  type    = string
 }
 
 variable "create_alb" {
@@ -40,7 +40,7 @@ variable "frontend_port" {
 
 variable "backend_port" {
   type    = number
-  default = 5000
+  default = 4000
 }
 
 variable "frontend_instance_id" {
