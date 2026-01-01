@@ -33,7 +33,9 @@ module "dev-flexing" {
   create_alb      = true
   custom_alb_name = ""
 
-  create_nlb      = true
-  custom_nlb_name = ""
+  create_nlb              = true
+  custom_nlb_name         = ""
+  nlb_enable_cross_zone   = true
+  nlb_deletion_protection = false
 
 }
