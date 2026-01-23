@@ -1,5 +1,7 @@
 module "backend-state" {
   source = "./REMOTE-BACKEND"
+
+  enable_remote_backend_state = var.enable_remote_backend_state
 }
 
 module "s3" {
@@ -45,8 +47,8 @@ module "sg" {
 
 module "keypair" {
   source = "./KEY-PAIR"
-  
-  project_name   = var.project_name
+
+  project_name    = var.project_name
   create_key_pair = var.create_ec2
 }
 
@@ -56,12 +58,12 @@ module "ec2" {
   env = var.env
 
   create_ec2_instance = var.create_ec2
-  ec2_instance_name = var.custom_ec2_instance_name != null && var.custom_ec2_instance_name != "" ? var.custom_ec2_instance_name : var.project_name
-  ami_id = local.ec2_ami_id
-  ec2_instance_type = var.ec2_instance_type
-  subnet_id = var.create_ec2 || var.create_vpc ? module.vpc.public_subnets_ids[0] : null
-  security_group_ids = [module.sg.security_group_id]
-  key_name           = module.keypair.key_name
+  ec2_instance_name   = var.custom_ec2_instance_name != null && var.custom_ec2_instance_name != "" ? var.custom_ec2_instance_name : var.project_name
+  ami_id              = local.ec2_ami_id
+  ec2_instance_type   = var.ec2_instance_type
+  subnet_id           = var.create_ec2 || var.create_vpc ? module.vpc.public_subnet_ids[0] : null
+  security_group_ids  = [module.sg.security_group_id]
+  key_name            = module.keypair.key_name
   associate_public_ip = var.ec2_public_ip
 }
 
@@ -71,8 +73,8 @@ module "amplify" {
   env = var.env
 
   create_amplify_app = var.create_amplify_app
-  app_name = var.custom_amplify_app_name != null && var.custom_amplify_app_name != "" ? var.custom_amplify_app_name : var.project_name
-  github_token = var.github_token
+  app_name           = var.custom_amplify_app_name != null && var.custom_amplify_app_name != "" ? var.custom_amplify_app_name : var.project_name
+  github_token       = var.github_token
 
 }
 
@@ -82,7 +84,7 @@ module "certificate" {
   env = var.env
 
   create_acm = var.create_acm
-  acm_name = var.custom_acm_name != null && var.custom_acm_name != "" ? var.custom_acm_name : var.project_name
+  acm_name   = var.custom_acm_name != null && var.custom_acm_name != "" ? var.custom_acm_name : var.project_name
 }
 
 module "alb" {
@@ -90,14 +92,14 @@ module "alb" {
 
   env = var.env
 
-  create_alb = var.create_alb && var.create_ec2 && var.create_amplify_app
-  alb_name = var.custom_alb_name != null && var.custom_alb_name != "" ? var.custom_alb_name : var.project_name
-  security_group_ids = [module.sg.security_group_id]
-  vpc_id = module.vpc.vpc_id
-  public_subnet_ids = module.vpc.public_subnet_ids
+  create_alb           = var.create_alb && var.create_ec2 && var.create_amplify_app
+  alb_name             = var.custom_alb_name != null && var.custom_alb_name != "" ? var.custom_alb_name : var.project_name
+  security_group_ids   = [module.sg.security_group_id]
+  vpc_id               = module.vpc.vpc_id
+  public_subnet_ids    = module.vpc.public_subnet_ids
   frontend_instance_id = module.amplify.amplify_app_id
-  backend_instance_id = module.ec2.instance_id
-  certificate_arn = module.certificate.certificate_arn
+  backend_instance_id  = module.ec2.instance_id
+  certificate_arn      = module.certificate.certificate_arn
 }
 
 
@@ -106,11 +108,11 @@ module "nlb" {
 
   env = var.env
 
-  create_nlb = var.create_nlb && var.create_ec2 && var.create_amplify_app
-  nlb_name = var.custom_nlb_name != null && var.custom_nlb_name != "" ? var.custom_nlb_name : var.project_name
-  vpc_id = module.vpc.vpc_id
-  subnet_ids = module.vpc.public_subnet_ids
-  instance_ids = module.ec2.instance_id
-  nlb_enable_cross_zone = var.nlb_enable_cross_zone
+  create_nlb              = var.create_nlb && var.create_ec2 && var.create_amplify_app
+  nlb_name                = var.custom_nlb_name != null && var.custom_nlb_name != "" ? var.custom_nlb_name : var.project_name
+  vpc_id                  = module.vpc.vpc_id
+  subnet_ids              = module.vpc.public_subnet_ids
+  instance_ids            = module.ec2.instance_id
+  nlb_enable_cross_zone   = var.nlb_enable_cross_zone
   nlb_deletion_protection = var.nlb_deletion_protection
 }

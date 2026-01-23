@@ -1,3 +1,14 @@
+module "prd-remote-backend" {
+  source = "./Infrastructure"
+
+  project_name = "remote-backend"
+  env          = "prd"
+
+  enable_remote_backend_state = true
+
+}
+
+
 module "dev-flexing" {
   source = "./Infrastructure"
 

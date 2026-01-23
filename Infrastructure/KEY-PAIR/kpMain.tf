@@ -7,7 +7,7 @@ resource "tls_private_key" "this" {
 
 resource "aws_key_pair" "this" {
   count = var.create_key_pair ? 1 : 0
-  
+
   key_name   = "${var.project_name}-key"
   public_key = tls_private_key.this[0].public_key_openssh
 }
