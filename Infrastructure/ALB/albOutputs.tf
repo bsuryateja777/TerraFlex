@@ -1,9 +1,9 @@
 output "alb_dns_name" {
-  value = var.create_alb ? aws_lb.this[0].dns_name : null
+  value = var.create_alb ? aws_lb.alb[0].dns_name : null
 }
 
 output "alb_arn" {
-  value = var.create_alb ? aws_lb.this[0].arn : null
+  value = var.create_alb ? aws_lb.alb[0].arn : null
 }
 
 output "frontend_target_group_arn" {

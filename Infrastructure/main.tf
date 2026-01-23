@@ -1,3 +1,7 @@
+module "backend-state" {
+  source = "./REMOTE-BACKEND"
+}
+
 module "s3" {
   source = "./S3"
 
@@ -43,6 +47,7 @@ module "keypair" {
   source = "./KEY-PAIR"
   
   project_name   = var.project_name
+  create_key_pair = var.create_ec2
 }
 
 module "ec2" {
@@ -54,7 +59,7 @@ module "ec2" {
   ec2_instance_name = var.custom_ec2_instance_name != null && var.custom_ec2_instance_name != "" ? var.custom_ec2_instance_name : var.project_name
   ami_id = local.ec2_ami_id
   ec2_instance_type = var.ec2_instance_type
-  subnet_id = module.vpc.public_subnet_ids[0]
+  subnet_id = var.create_ec2 || var.create_vpc ? module.vpc.public_subnets_ids[0] : null
   security_group_ids = [module.sg.security_group_id]
   key_name           = module.keypair.key_name
   associate_public_ip = var.ec2_public_ip

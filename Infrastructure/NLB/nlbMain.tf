@@ -45,10 +45,7 @@ resource "aws_lb_target_group" "tcp" {
 }
 
 resource "aws_lb_target_group_attachment" "ec2" {
-
-  count = var.create_nlb ? 1 : 0
-
-  for_each = toset(var.instance_ids)
+  for_each = var.create_nlb ? toset(var.instance_ids) : []
 
   target_group_arn = aws_lb_target_group.tcp[0].arn
   target_id        = each.value
