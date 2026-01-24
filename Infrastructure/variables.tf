@@ -56,6 +56,15 @@ variable "azs" {
   default = ["us-east-2a", "us-east-2b"]
 }
 
+variable "peer_vpc_to" {
+  type = object({
+    vpc_id     = string
+    cidr_block = string
+    rt_id      = string
+  })
+  default = null
+}
+
 # ------------------------
 # Subnet Toggles
 # ------------------------

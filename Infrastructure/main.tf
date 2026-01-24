@@ -34,6 +34,19 @@ module "vpc" {
   intra_subnet_cidrs   = var.intra_subnet_cidrs
 }
 
+module "vpc-peering" {
+  source = "./VPC-PEERING"
+
+  enable_vpc_peering = var.peer_vpc_to != null
+
+  vpc_a_id         = try(module.vpc.vpc_id, null)
+  vpc_b_id         = var.peer_vpc_to.vpc_id
+  vpc_a_cidr_block = var.vpc_cidr
+  vpc_b_cidr_block = var.peer_vpc_to.cidr_block
+  vpc_a_rt_id      = try(module.vpc.public_route_table_id, null)
+  vpc_b_rt_id      = var.peer_vpc_to.rt_id
+}
+
 
 module "sg" {
   source = "./SECURITY-GROUPS"
