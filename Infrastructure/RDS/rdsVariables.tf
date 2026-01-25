@@ -41,10 +41,10 @@ variable "allocated_storage" {
   default = 20
 }
 
-variable "db_subnet_group_name" {
-  type = string
+variable "rds_security_group_ids" {
+  type = list(string)
 }
 
-variable "rds_security_group_ids" {
+variable "subnet_ids" {
   type = list(string)
 }

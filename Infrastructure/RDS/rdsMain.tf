@@ -15,7 +15,7 @@ resource "aws_db_instance" "rds" {
   password = var.db_password
 
   vpc_security_group_ids = var.rds_security_group_ids
-  db_subnet_group_name   = var.db_subnet_group_name
+  db_subnet_group_name   = aws_db_subnet_group.this[0].name
 
   publicly_accessible = false
   multi_az            = false
