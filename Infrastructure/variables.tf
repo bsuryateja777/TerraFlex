@@ -262,3 +262,28 @@ variable "nlb_enable_cross_zone" {
 variable "nlb_deletion_protection" {
   default = false
 }
+
+
+# ------------------------------------
+# RDS Toggles & Info
+# ------------------------------------
+
+variable "create_rds" {
+  type    = bool
+  default = false
+}
+
+variable "custom_rds_name" {
+  default = null
+  type    = string
+}
+
+variable "rds_username" {
+  type    = string
+  default = "admin"
+}
+
+variable "rds_password" {
+  type    = string
+  default = "admin12345"
+}

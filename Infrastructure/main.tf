@@ -129,3 +129,17 @@ module "nlb" {
   nlb_enable_cross_zone   = var.nlb_enable_cross_zone
   nlb_deletion_protection = var.nlb_deletion_protection
 }
+
+module "rds" {
+  source = "./RDS"
+
+  env = var.env
+
+  create_rds             = var.create_rds
+  db_name                = var.custom_rds_name != null && var.custom_rds_name != "" ? var.custom_rds_name : var.project_name
+  db_username            = var.rds_username
+  db_password            = var.rds_password
+  rds_security_group_ids = [module.sg.security_group_id]
+  db_subnet_group_name   = module.vpc.public_subnet_ids
+
+}
