@@ -10,7 +10,7 @@ resource "aws_db_instance" "rds" {
   allocated_storage = var.allocated_storage
   storage_type      = "gp3"
 
-  db_name  = var.db_name
+  db_name  = local.aws_rds_name
   username = var.db_username
   password = var.db_password
 
