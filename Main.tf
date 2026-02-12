@@ -46,7 +46,7 @@ module "prd-first" {
 
   create_amplify_app      = true
   custom_amplify_app_name = "prd-first-amplify"
-  github_token            = "xxxxxxxxxxxxxxxxxxxxxxxxx"
+  github_token            = var.github_token
 
   create_alb      = true
   custom_alb_name = "prd-first-alb"
