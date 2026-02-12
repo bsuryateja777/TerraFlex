@@ -1,6 +1,5 @@
 resource "aws_lb_listener" "http" {
-  count             = var.create_alb ? 1 : 0
-  load_balancer_arn = aws_lb.alb[0].arn
+  load_balancer_arn = aws_lb.alb.arn
   port              = 80
   protocol          = "HTTP"
 
@@ -16,8 +15,7 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_lb_listener" "https" {
-  count             = var.create_alb ? 1 : 0
-  load_balancer_arn = aws_lb.alb[0].arn
+  load_balancer_arn = aws_lb.alb.arn
   port              = 443
   protocol          = "HTTPS"
   certificate_arn   = var.certificate_arn
@@ -25,13 +23,12 @@ resource "aws_lb_listener" "https" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.frontend[0].arn
+    target_group_arn = aws_lb_target_group.frontend.arn
   }
 }
 
 resource "aws_lb_listener_rule" "backend" {
-  count        = var.create_alb ? 1 : 0
-  listener_arn = aws_lb_listener.https[0].arn
+  listener_arn = aws_lb_listener.https.arn
   priority     = 10
 
   condition {
@@ -42,6 +39,6 @@ resource "aws_lb_listener_rule" "backend" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.backend[0].arn
+    target_group_arn = aws_lb_target_group.backend.arn
   }
 }

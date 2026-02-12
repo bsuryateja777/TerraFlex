@@ -1,15 +1,11 @@
 variable "env" {
-  type    = string
-  default = "dev"
-}
-
-variable "create_sg" {
-  type    = bool
-  default = false
+  description = "Deployment environment"
+  type        = string
 }
 
 variable "sg_name" {
-  type = string
+  description = "Security group name suffix"
+  type        = string
 }
 
 variable "vpc_id" {
@@ -17,3 +13,7 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "icmp_ingress_cidrs" {
+  description = "List of CIDRs allowed for ICMP ingress"
+  type        = list(string)
+}

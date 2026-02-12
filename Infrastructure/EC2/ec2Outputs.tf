@@ -1,11 +1,11 @@
 output "instance_id" {
-  value = var.create_ec2_instance ? aws_instance.this[0].id : null
+  value = aws_instance.this.id
 }
 
 output "private_ip" {
-  value = var.create_ec2_instance ? aws_instance.this[0].private_ip : null
+  value = aws_instance.this.private_ip
 }
 
 output "public_ip" {
-  value = var.create_ec2_instance ? aws_instance.this[0].public_ip : null
+  value = aws_instance.this.public_ip
 }

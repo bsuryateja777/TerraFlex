@@ -1,11 +1,5 @@
 variable "env" {
-  type    = string
-  default = "dev"
-}
-
-variable "create_vpc" {
-  type    = bool
-  default = true
+  type = string
 }
 
 variable "vpc_name" {
@@ -13,67 +7,29 @@ variable "vpc_name" {
 }
 
 variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
+  type = string
 }
 
 variable "azs" {
-  type    = list(string)
-  default = ["us-east-2a", "us-east-2b"]
+  type = list(string)
 }
-
-# ------------------------
-# Subnet Toggles
-# ------------------------
-
-variable "create_public_subnets" {
-  type    = bool
-  default = true
-}
-
-variable "create_private_subnets" {
-  type    = bool
-  default = false
-}
-
-variable "create_intra_subnets" {
-  type    = bool
-  default = false
-}
-
-# ------------------------
-# Subnet CIDRs
-# ------------------------
 
 variable "public_subnet_cidrs" {
-  type    = list(string)
+  type = list(string)
   default = []
 }
 
 variable "private_subnet_cidrs" {
-  type    = list(string)
+  type = list(string)
   default = []
 }
 
 variable "intra_subnet_cidrs" {
-  type    = list(string)
+  type = list(string)
   default = []
 }
 
-# ------------------------
-# Internet Gateway
-# ------------------------
-
 variable "create_igw" {
-  type    = bool
-  default = true
-}
-
-# ------------------------
-# Routing
-# ------------------------
-
-variable "create_route_tables" {
   type    = bool
   default = true
 }

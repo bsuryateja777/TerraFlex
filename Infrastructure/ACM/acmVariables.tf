@@ -1,19 +1,12 @@
 variable "env" {
-  type    = string
-  default = "prod"
+  type = string
 }
 
 variable "acm_name" {
-  type    = string
-  default = "tp"
-}
-
-variable "create_acm" {
-  type = bool
+  type = string
 }
 
 variable "domain_name" {
   description = "Main domain name for frontend and backend"
   type        = string
-  default     = "rentease-app.ddns.net"
 }

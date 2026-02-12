@@ -1,7 +1,4 @@
 resource "aws_instance" "this" {
-
-  count = var.create_ec2_instance ? 1 : 0
-
   ami                         = var.ami_id
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.subnet_id

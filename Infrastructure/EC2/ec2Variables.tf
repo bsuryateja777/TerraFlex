@@ -2,10 +2,6 @@ variable "env" {
   type = string
 }
 
-variable "create_ec2_instance" {
-  type = bool
-}
-
 variable "ec2_instance_name" {
   description = "Name tag for EC2 instance"
   type        = string

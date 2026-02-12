@@ -1,7 +1,4 @@
 resource "aws_acm_certificate" "this" {
-
-  count = var.create_acm ? 1 : 0
-
   domain_name       = var.domain_name
   validation_method = "EMAIL"
 

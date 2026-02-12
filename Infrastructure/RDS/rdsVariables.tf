@@ -1,50 +1,55 @@
 variable "env" {
-  type = string
-}
-
-variable "create_rds" {
-  type    = bool
-  default = false
+  description = "Deployment environment (dev, prod, etc.)"
+  type        = string
 }
 
 variable "db_name" {
-  type = string
+  description = "Base name for the RDS instance"
+  type        = string
 }
 
 variable "db_username" {
-  type      = string
-  sensitive = true
+  description = "Master database username"
+  type        = string
+  sensitive   = true
 }
 
 variable "db_password" {
-  type      = string
-  sensitive = true
+  description = "Master database password"
+  type        = string
+  sensitive   = true
 }
 
 variable "engine" {
-  type    = string
-  default = "postgres"
+  description = "Database engine"
+  type        = string
+  default     = "postgres"
 }
 
 variable "engine_version" {
-  type    = string
-  default = "15.4"
+  description = "Database engine version"
+  type        = string
+  default     = "15.4"
 }
 
 variable "instance_class" {
-  type    = string
-  default = "db.t3.micro"
+  description = "RDS instance class"
+  type        = string
+  default     = "db.t3.micro"
 }
 
 variable "allocated_storage" {
-  type    = number
-  default = 20
+  description = "Allocated storage in GB"
+  type        = number
+  default     = 20
 }
 
 variable "rds_security_group_ids" {
-  type = list(string)
+  description = "Security group IDs for RDS"
+  type        = list(string)
 }
 
 variable "subnet_ids" {
-  type = list(string)
+  description = "Private subnet IDs for RDS subnet group"
+  type        = list(string)
 }

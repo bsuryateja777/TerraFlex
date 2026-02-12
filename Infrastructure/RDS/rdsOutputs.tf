@@ -1,8 +1,9 @@
 output "rds_endpoint" {
-  value       = var.create_rds ? aws_db_instance.rds[0].endpoint : null
   description = "RDS endpoint"
+  value       = aws_db_instance.this.endpoint
 }
 
 output "rds_id" {
-  value = var.create_rds ? aws_db_instance.rds[0].id : null
+  description = "RDS instance ID"
+  value       = aws_db_instance.this.id
 }

@@ -1,5 +1,4 @@
 resource "aws_lb" "alb" {
-  count              = var.create_alb ? 1 : 0
   name               = local.aws_alb_name
   internal           = false
   load_balancer_type = "application"
@@ -13,7 +12,6 @@ resource "aws_lb" "alb" {
 }
 
 resource "aws_lb_target_group" "frontend" {
-  count    = var.create_alb ? 1 : 0
   name     = "tg-frontend-${local.aws_alb_name}"
   port     = var.frontend_port
   protocol = "HTTP"
@@ -25,7 +23,6 @@ resource "aws_lb_target_group" "frontend" {
 }
 
 resource "aws_lb_target_group" "backend" {
-  count    = var.create_alb ? 1 : 0
   name     = "tg-backend-${local.aws_alb_name}"
   port     = var.backend_port
   protocol = "HTTP"
@@ -37,15 +34,13 @@ resource "aws_lb_target_group" "backend" {
 }
 
 resource "aws_lb_target_group_attachment" "frontend" {
-  count            = var.create_alb ? 1 : 0
-  target_group_arn = aws_lb_target_group.frontend[0].arn
+  target_group_arn = aws_lb_target_group.frontend.arn
   target_id        = var.frontend_instance_id
   port             = var.frontend_port
 }
 
 resource "aws_lb_target_group_attachment" "backend" {
-  count            = var.create_alb ? 1 : 0
-  target_group_arn = aws_lb_target_group.backend[0].arn
+  target_group_arn = aws_lb_target_group.backend.arn
   target_id        = var.backend_instance_id
   port             = var.backend_port
 }

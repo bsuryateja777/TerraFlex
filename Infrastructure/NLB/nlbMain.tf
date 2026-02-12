@@ -1,12 +1,8 @@
 resource "aws_lb" "nlb" {
-
-  count = var.create_nlb ? 1 : 0
-
   name               = local.aws_nlb_name
   internal           = var.internal_nlb
   load_balancer_type = "network"
-
-  subnets = var.subnet_ids
+  subnets            = var.subnet_ids
 
   enable_deletion_protection       = var.nlb_deletion_protection
   enable_cross_zone_load_balancing = var.nlb_enable_cross_zone
@@ -18,15 +14,11 @@ resource "aws_lb" "nlb" {
 }
 
 resource "aws_lb_target_group" "tcp" {
-
-  count = var.create_nlb ? 1 : 0
-
   name        = "tg-tcp-${local.aws_nlb_name}"
   port        = var.target_port
   protocol    = "TCP"
   vpc_id      = var.vpc_id
-  target_type = var.target_type # instance | ip
-
+  target_type = var.target_type
   deregistration_delay = var.deregistration_delay
 
   health_check {
@@ -45,9 +37,9 @@ resource "aws_lb_target_group" "tcp" {
 }
 
 resource "aws_lb_target_group_attachment" "ec2" {
-  for_each = var.create_nlb ? toset(var.instance_ids) : []
+  for_each = toset(var.instance_ids)
 
-  target_group_arn = aws_lb_target_group.tcp[0].arn
+  target_group_arn = aws_lb_target_group.tcp.arn
   target_id        = each.value
   port             = var.target_port
 }

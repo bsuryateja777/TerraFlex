@@ -1,5 +1,13 @@
 output "vpc_id" {
-  value = try(aws_vpc.this[0].id, null)
+  value = aws_vpc.this.id
+}
+
+output "vpc_name" {
+  value = aws_vpc.this.tags["Name"]
+}
+
+output "vpc_cidr_block" {
+  value = aws_vpc.this.cidr_block
 }
 
 output "public_subnet_ids" {
@@ -15,7 +23,7 @@ output "intra_subnet_ids" {
 }
 
 output "igw_id" {
-  value = try(aws_internet_gateway.this[0].id, null)
+  value = length(aws_internet_gateway.this) > 0 ? aws_internet_gateway.this[0].id : null
 }
 
 output "public_route_table_id" {
@@ -23,9 +31,5 @@ output "public_route_table_id" {
 }
 
 output "private_route_table_id" {
-  value = try(aws_route_table.private[0].id, null)
-}
-
-output "intra_route_table_id" {
-  value = try(aws_route_table.intra[0].id, null)
+  value = length(aws_route_table.private) > 0 ? aws_route_table.private[0].id : null
 }

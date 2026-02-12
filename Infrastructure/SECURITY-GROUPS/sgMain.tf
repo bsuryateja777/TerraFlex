@@ -1,8 +1,6 @@
 resource "aws_security_group" "this" {
 
-  count = var.create_sg ? 1 : 0
-
-  name        = "all-in-one-sg"
+  name        = local.aws_sg_name
   description = "Allow SSH, HTTP, HTTPS, and app traffic on port 4000"
   vpc_id      = var.vpc_id
 
@@ -52,6 +50,6 @@ resource "aws_security_group" "this" {
 
   tags = {
     Name        = local.aws_sg_name
-    environment = var.env
+    Environment = var.env
   }
 }

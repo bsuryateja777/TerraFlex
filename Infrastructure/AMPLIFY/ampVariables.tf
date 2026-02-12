@@ -1,28 +1,34 @@
 variable "env" {
-  type    = string
-  default = "dev"
+  description = "Deployment environment (dev, prod, etc.)"
+  type        = string
+  default     = "dev"
 }
 
 variable "create_amplify_app" {
-  type    = bool
-  default = false
+  description = "Whether to create Amplify app"
+  type        = bool
+  default     = false
 }
 
 variable "app_name" {
-  type = string
+  description = "Amplify app name prefix"
+  type        = string
 }
 
 variable "github_repo" {
-  type    = string
-  default = "https://github.com/bsuryateja777/RentEase.git"
+  description = "GitHub repository URL for Amplify app"
+  type        = string
+  default     = "https://github.com/bsuryateja777/RentEase.git"
 }
 
 variable "github_branch" {
-  type    = string
-  default = "amplifytf"
+  description = "GitHub branch to deploy in Amplify"
+  type        = string
+  default     = "amplifytf"
 }
 
 variable "github_token" {
-  type      = string
-  sensitive = true
+  description = "GitHub OAuth token"
+  type        = string
+  sensitive   = true
 }
