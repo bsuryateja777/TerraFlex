@@ -6,6 +6,12 @@ resource "aws_instance" "this" {
   key_name                    = var.key_name
   associate_public_ip_address = var.associate_public_ip
 
+  iam_instance_profile = aws_iam_instance_profile.this.name
+
+  user_data = templatefile("${path.module}/user_data.sh", {
+    log_group_name = var.monitoring_log_group_name
+  })
+
   tags = {
     Name        = local.aws_ec2_instance_name
     Environment = var.env

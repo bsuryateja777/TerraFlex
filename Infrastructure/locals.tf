@@ -36,6 +36,7 @@ locals {
   create_nlb_final     = local.need_nlb
   create_rds_final     = var.create_rds
   create_vpc_peering   = var.peer_vpc_to != null
+  create_monitoring_final = local.create_ec2_final
 
   # ---------- ICMP LOGIC ----------
   final_icmp_ingress_cidrs = concat(var.icmp_ingress_cidrs, var.peer_vpc_to != null ? [var.peer_vpc_to.cidr_block] : [])

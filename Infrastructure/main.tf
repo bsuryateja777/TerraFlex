@@ -42,8 +42,8 @@ module "vpc_peering" {
   vpc_a_cidr_block = var.vpc_cidr
   vpc_b_cidr_block = var.peer_vpc_to.cidr_block
 
-  vpc_a_rt_id = module.vpc[0].public_route_table_id
-  vpc_b_rt_id = var.peer_vpc_to.rt_id
+  vpc_a_route_table_ids = module.vpc[0].all_route_table_ids
+  vpc_b_route_table_ids = var.peer_vpc_to.route_table_ids
 
   vpc_a_name = local.vpc_name
   vpc_b_name = var.peer_vpc_to.name
@@ -80,6 +80,7 @@ module "ec2" {
   security_group_ids  = [module.sg[0].security_group_id]
   key_name            = module.keypair[0].key_name
   associate_public_ip = var.ec2_public_ip
+  monitoring_log_group_name      = module.monitoring[0].log_group_name
 }
 
 
@@ -112,7 +113,7 @@ module "alb" {
   security_group_ids   = [module.sg[0].security_group_id]
   vpc_id               = module.vpc[0].vpc_id
   public_subnet_ids    = module.vpc[0].public_subnet_ids
-  frontend_instance_id = module.amplify[0].amplify_app_id
+  frontend_instance_id = module.ec2[0].instance_id
   backend_instance_id  = module.ec2[0].instance_id
   certificate_arn      = module.certificate[0].certificate_arn
 }
@@ -149,4 +150,15 @@ module "rds" {
   rds_security_group_ids = [module.sg[0].security_group_id]
   subnet_ids             = module.vpc[0].private_subnet_ids
 
+}
+
+module "monitoring" {
+  source = "./MONITORING"
+
+  count = local.create_monitoring_final ? 1 : 0
+
+  project_name       = var.project_name
+  log_retention_days = 30
+  alert_email        = var.alert_email
+  ec2_instance_id    = module.ec2[0].instance_id
 }

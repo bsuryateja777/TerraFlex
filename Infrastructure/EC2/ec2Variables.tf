@@ -36,3 +36,7 @@ variable "associate_public_ip" {
   description = "Attach public IP or not"
   type        = bool
 }
+
+variable "monitoring_log_group_name" {
+  type = string
+}

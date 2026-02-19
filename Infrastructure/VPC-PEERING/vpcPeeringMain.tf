@@ -8,14 +8,20 @@ resource "aws_vpc_peering_connection" "this" {
   }
 }
 
+# VPC A → VPC B
 resource "aws_route" "a_to_b" {
-  route_table_id            = var.vpc_a_rt_id
+  for_each = toset(var.vpc_a_route_table_ids)
+
+  route_table_id            = each.value
   destination_cidr_block    = var.vpc_b_cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.this.id
 }
 
+# VPC B → VPC A
 resource "aws_route" "b_to_a" {
-  route_table_id            = var.vpc_b_rt_id
+  for_each = toset(var.vpc_b_route_table_ids)
+
+  route_table_id            = each.value
   destination_cidr_block    = var.vpc_a_cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.this.id
 }

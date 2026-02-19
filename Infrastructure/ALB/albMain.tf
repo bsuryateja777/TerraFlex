@@ -5,6 +5,12 @@ resource "aws_lb" "alb" {
   security_groups    = [var.security_group_ids[0]]
   subnets            = var.public_subnet_ids
 
+  access_logs {
+  bucket  = aws_s3_bucket.this.bucket
+  enabled = true
+  prefix  = "alb-logs"
+}
+
   tags = {
     Name        = local.aws_alb_name
     Environment = var.env

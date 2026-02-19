@@ -62,14 +62,15 @@ variable "azs" {
 
 variable "peer_vpc_to" {
   type = object({
-    name       = string
-    vpc_id     = string
-    cidr_block = string
-    rt_id      = string
+    name             = string
+    vpc_id           = string
+    cidr_block       = string
+    route_table_ids  = list(string)
   })
   default     = null
-  description = "Optional information about a VPC to peer with. Set to null to skip peering."
+  description = "Optional information about a VPC to peer with."
 }
+
 
 # ------------------------
 # Subnet Toggles
@@ -343,4 +344,23 @@ variable "rds_allocated_storage" {
   description = "Allocated storage in GB"
   type        = number
   default     = 20
+}
+
+
+# ------------------------
+# Central Monitoring
+# ------------------------
+variable "log_retention_days" {
+  type    = number
+  default = 30
+}
+
+variable "enable_monitoring" {
+  type    = bool
+  default = true
+}
+
+variable "alert_email" {
+  type = string
+  default = "bsuryateja777@gmail.com"
 }

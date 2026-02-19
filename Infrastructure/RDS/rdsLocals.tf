@@ -1,3 +1,3 @@
 locals {
-  aws_rds_name = "rds-${var.db_name}"
+  aws_rds_name = replace(var.db_name, "-", "")
 }

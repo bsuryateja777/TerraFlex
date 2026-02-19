@@ -37,9 +37,9 @@ resource "aws_lb_target_group" "tcp" {
 }
 
 resource "aws_lb_target_group_attachment" "ec2" {
-  for_each = toset(var.instance_ids)
+  for_each = { for idx, id in var.instance_ids : idx => id }
 
   target_group_arn = aws_lb_target_group.tcp.arn
   target_id        = each.value
-  port             = var.target_port
+  port             = 80
 }
