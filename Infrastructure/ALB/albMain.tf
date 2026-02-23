@@ -1,5 +1,5 @@
 resource "aws_lb" "alb" {
-  name               = local.aws_alb_name
+  name               = var.alb_name
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.security_group_ids[0]]
@@ -12,13 +12,13 @@ resource "aws_lb" "alb" {
 }
 
   tags = {
-    Name        = local.aws_alb_name
+    Name        = var.alb_name
     Environment = var.env
   }
 }
 
 resource "aws_lb_target_group" "frontend" {
-  name     = "tg-frontend-${local.aws_alb_name}"
+  name     = "tg-frontend-${var.alb_name}"
   port     = var.frontend_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -29,7 +29,7 @@ resource "aws_lb_target_group" "frontend" {
 }
 
 resource "aws_lb_target_group" "backend" {
-  name     = "tg-backend-${local.aws_alb_name}"
+  name     = "tg-backend-${var.alb_name}"
   port     = var.backend_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id

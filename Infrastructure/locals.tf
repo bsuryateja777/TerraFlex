@@ -4,16 +4,16 @@ locals {
 
   # ---------- NAMES ----------
   normalized_s3_bucket_name = var.custom_s3_bucket_name != "" ? var.custom_s3_bucket_name : null
-  s3_bucket_name            = coalesce(local.normalized_s3_bucket_name, var.project_name)
-  vpc_name                  = coalesce(var.custom_vpc_name, var.project_name)
-  sg_name                   = coalesce(var.custom_sg_name, var.project_name)
-  ec2_name                  = coalesce(var.custom_ec2_instance_name, var.project_name)
-  amplify_name              = coalesce(var.custom_amplify_app_name, var.project_name)
-  acm_name                  = coalesce(var.custom_acm_name, var.project_name)
-  alb_name                  = coalesce(var.custom_alb_name, var.project_name)
-  nlb_name                  = coalesce(var.custom_nlb_name, var.project_name)
-  rds_name                  = coalesce(var.custom_rds_name, var.project_name)
-  ecr_name                  = coalesce(var.custom_ecr_name, var.project_name)
+  s3_bucket_name            = coalesce(local.normalized_s3_bucket_name, "s3-{var.project_name}")
+  vpc_name                  = coalesce(var.custom_vpc_name, "vpc-${var.project_name}")
+  sg_name                   = coalesce(var.custom_sg_name, "${var.project_name}-sg")
+  ec2_name                  = coalesce(var.custom_ec2_instance_name, "ec2-${var.project_name}")
+  amplify_name              = coalesce(var.custom_amplify_app_name, "app-${var.project_name}")
+  acm_name                  = coalesce(var.custom_acm_name, "acm-${var.project_name}")
+  alb_name                  = coalesce(var.custom_alb_name, "alb-${var.project_name}")
+  nlb_name                  = coalesce(var.custom_nlb_name, "nlb-${var.project_name}")
+  rds_name                  = coalesce(var.custom_rds_name, replace("rds-${var.project_name}", "-", ""))
+  ecr_name                  = coalesce(var.custom_ecr_name, "ecr-${var.project_name}")
 
   # ---------- BASE DEPENDENCIES ----------
   need_vpc     = var.create_vpc || var.create_ec2 || var.create_rds || var.create_alb || var.create_nlb || var.peer_vpc_to != null

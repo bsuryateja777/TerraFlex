@@ -13,7 +13,7 @@ resource "aws_instance" "this" {
   })
 
   tags = {
-    Name        = local.aws_ec2_instance_name
+    Name        = var.ec2_instance_name
     Environment = var.env
   }
 }

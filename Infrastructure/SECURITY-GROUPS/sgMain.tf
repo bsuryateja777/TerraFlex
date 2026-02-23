@@ -1,6 +1,6 @@
 resource "aws_security_group" "this" {
 
-  name        = local.aws_sg_name
+  name        = var.sg_name
   description = "Allow SSH, HTTP, HTTPS, and app traffic on port 4000"
   vpc_id      = var.vpc_id
 
@@ -49,7 +49,7 @@ resource "aws_security_group" "this" {
   }
 
   tags = {
-    Name        = local.aws_sg_name
+    Name        = var.sg_name
     Environment = var.env
   }
 }

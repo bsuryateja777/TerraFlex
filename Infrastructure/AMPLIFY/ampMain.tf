@@ -13,7 +13,7 @@ resource "aws_amplify_app" "this" {
   }
 
   tags = {
-    Name        = local.aws_amplify_app_name
+    Name        = var.app_name
     Environment = var.env
   }
 }

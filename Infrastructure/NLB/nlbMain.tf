@@ -1,5 +1,5 @@
 resource "aws_lb" "nlb" {
-  name               = local.aws_nlb_name
+  name               = var.nlb_name
   internal           = var.internal_nlb
   load_balancer_type = "network"
   subnets            = var.subnet_ids
@@ -8,13 +8,13 @@ resource "aws_lb" "nlb" {
   enable_cross_zone_load_balancing = var.nlb_enable_cross_zone
 
   tags = {
-    Name        = local.aws_nlb_name
+    Name        = var.nlb_name
     Environment = var.env
   }
 }
 
 resource "aws_lb_target_group" "tcp" {
-  name        = "tg-tcp-${local.aws_nlb_name}"
+  name        = "tg-tcp-${var.nlb_name}"
   port        = var.target_port
   protocol    = "TCP"
   vpc_id      = var.vpc_id
@@ -31,7 +31,7 @@ resource "aws_lb_target_group" "tcp" {
   }
 
   tags = {
-    Name        = "tg-tcp-${local.aws_nlb_name}"
+    Name        = "tg-tcp-${var.nlb_name}"
     Environment = var.env
   }
 }

@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "this" {
-  name                 = local.aws_ecr_repo_name
+  name                 = var.ecr_name
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -7,7 +7,7 @@ resource "aws_ecr_repository" "this" {
   }
 
   tags = {
-    Name        = local.aws_ecr_repo_name
+    Name        = var.ecr_name
     Environment = var.environment
   }
 }

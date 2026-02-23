@@ -7,7 +7,7 @@ resource "aws_acm_certificate" "this" {
   }
 
   tags = {
-    Name        = local.aws_acm_name
+    Name        = var.acm_name
     Environment = var.env
   }
 }
