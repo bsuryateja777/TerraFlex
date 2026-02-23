@@ -62,10 +62,10 @@ variable "azs" {
 
 variable "peer_vpc_to" {
   type = object({
-    name             = string
-    vpc_id           = string
-    cidr_block       = string
-    route_table_ids  = list(string)
+    name            = string
+    vpc_id          = string
+    cidr_block      = string
+    route_table_ids = list(string)
   })
   default     = null
   description = "Optional information about a VPC to peer with."
@@ -361,6 +361,23 @@ variable "enable_monitoring" {
 }
 
 variable "alert_email" {
-  type = string
+  type    = string
   default = "bsuryateja777@gmail.com"
+}
+
+
+# ------------------------
+# ECR
+# ------------------------
+
+variable "create_ecr" {
+  default     = false
+  type        = bool
+  description = "set to true to create an ECR repository."
+}
+
+variable "custom_ecr_name" {
+  default     = null
+  type        = string
+  description = "optional custom name variable to name your ECR."
 }

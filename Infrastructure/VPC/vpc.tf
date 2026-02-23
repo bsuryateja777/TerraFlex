@@ -8,3 +8,12 @@ resource "aws_vpc" "this" {
     Environment = var.env
   }
 }
+
+data "aws_route_table" "main" {
+  vpc_id = aws_vpc.this.id
+
+  filter {
+    name   = "association.main"
+    values = ["true"]
+  }
+}

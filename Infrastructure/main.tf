@@ -52,11 +52,11 @@ module "vpc_peering" {
 
 module "sg" {
   source = "./SECURITY-GROUPS"
-  count  = local.create_sg_final ? 1 : 0
+  count  = local.create_sg_final && length(module.vpc) > 0 ? 1 : 0
 
   env                = var.env
   sg_name            = local.sg_name
-  vpc_id             = module.vpc[0].vpc_id
+  vpc_id             = try(module.vpc[0].vpc_id, null)
   icmp_ingress_cidrs = local.final_icmp_ingress_cidrs
 }
 
@@ -72,15 +72,15 @@ module "ec2" {
   source = "./EC2"
   count  = local.create_ec2_final ? 1 : 0
 
-  env                 = var.env
-  ec2_instance_name   = local.ec2_name
-  ami_id              = local.ec2_ami_id
-  ec2_instance_type   = var.ec2_instance_type
-  subnet_id           = module.vpc[0].public_subnet_ids[0]
-  security_group_ids  = [module.sg[0].security_group_id]
-  key_name            = module.keypair[0].key_name
-  associate_public_ip = var.ec2_public_ip
-  monitoring_log_group_name      = module.monitoring[0].log_group_name
+  env                       = var.env
+  ec2_instance_name         = local.ec2_name
+  ami_id                    = local.ec2_ami_id
+  ec2_instance_type         = var.ec2_instance_type
+  subnet_id                 = module.vpc[0].public_subnet_ids[0]
+  security_group_ids        = [module.sg[0].security_group_id]
+  key_name                  = module.keypair[0].key_name
+  associate_public_ip       = var.ec2_public_ip
+  monitoring_log_group_name = module.monitoring[0].log_group_name
 }
 
 
@@ -161,4 +161,13 @@ module "monitoring" {
   log_retention_days = 30
   alert_email        = var.alert_email
   ec2_instance_id    = module.ec2[0].instance_id
+}
+
+module "ecr" {
+  source = "./ECR"
+
+  count = local.create_ecr_final ? 1 : 0
+
+  ecr_name    = local.ecr_name
+  environment = var.env
 }

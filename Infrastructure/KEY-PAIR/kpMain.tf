@@ -8,8 +8,8 @@ resource "aws_key_pair" "this" {
   public_key = tls_private_key.this.public_key_openssh
 }
 
-resource "local_file" "ec2_private_key" {
-  sensitive_content = tls_private_key.this.private_key_pem
-  filename          = "${path.module}/keys/${var.project_name}.pem"
-  file_permission   = "0600"
+resource "local_sensitive_file" "ec2_private_key" {
+  filename        = "${path.module}/keys/${var.project_name}.pem"
+  file_permission = "0600"
+  content         = tls_private_key.this.private_key_pem
 }

@@ -36,9 +36,9 @@ output "private_route_table_id" {
 
 
 output "all_route_table_ids" {
-  description = "All route table IDs in this VPC"
-  value = compact(concat(
-    length(aws_route_table.public)  > 0 ? [aws_route_table.public[0].id]  : [],
-    length(aws_route_table.private) > 0 ? [aws_route_table.private[0].id] : []
-  ))
+  value = concat(
+    [data.aws_route_table.main.id],
+    aws_route_table.public[*].id,
+    aws_route_table.private[*].id,
+  )
 }
