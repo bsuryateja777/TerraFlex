@@ -108,14 +108,23 @@ module "alb" {
   source = "./ALB"
   count  = local.create_alb_final ? 1 : 0
 
-  env                  = var.env
-  alb_name             = local.alb_name
-  security_group_ids   = [module.sg[0].security_group_id]
-  vpc_id               = module.vpc[0].vpc_id
-  public_subnet_ids    = module.vpc[0].public_subnet_ids
-  frontend_instance_id = module.ec2[0].instance_id
-  backend_instance_id  = module.ec2[0].instance_id
-  certificate_arn      = module.certificate[0].certificate_arn
+  env                = var.env
+  alb_name           = local.alb_name
+  security_group_ids = [module.sg[0].security_group_id]
+  vpc_id             = module.vpc[0].vpc_id
+  public_subnet_ids  = module.vpc[0].public_subnet_ids
+
+  instance_id     = local.create_ec2_final ? module.ec2[0].instance_id : null
+  enable_https    = var.enable_https
+  certificate_arn = local.create_acm_final ? module.certificate[0].certificate_arn : null
+  target_type     = local.create_ecs_final ? "ecs" : "ec2"
+
+  enable_frontend = var.enable_frontend_alb
+  enable_backend  = var.enable_backend_alb
+
+
+  frontend_port = var.frontend_port
+  backend_port  = var.backend_port
 }
 
 
@@ -160,7 +169,8 @@ module "monitoring" {
   project_name       = var.project_name
   log_retention_days = 30
   alert_email        = var.alert_email
-  ec2_instance_id    = module.ec2[0].instance_id
+  ec2_instance_id    = local.create_ec2_final ? module.ec2[0].instance_id : null
+
 }
 
 module "ecr" {
@@ -170,4 +180,22 @@ module "ecr" {
 
   ecr_name    = local.ecr_name
   environment = var.env
+}
+
+module "ecs" {
+  source = "./ECS"
+
+  count = local.create_ecs_final ? 1 : 0
+
+  ecs_name = local.ecs_name
+  region   = var.region
+
+  vpc_id            = module.vpc[0].vpc_id
+  private_subnets   = module.vpc[0].private_subnet_ids
+  security_group_id = module.sg[0].security_group_id
+
+  aws_cloudwatch_log_group_name = module.monitoring[0].log_group_name
+  alb_listener_arn              = module.alb[0].http_listener_arn
+  container_image               = var.container_image
+
 }

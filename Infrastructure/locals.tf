@@ -14,16 +14,64 @@ locals {
   nlb_name                  = coalesce(var.custom_nlb_name, "nlb-${var.project_name}")
   rds_name                  = coalesce(var.custom_rds_name, replace("rds-${var.project_name}", "-", ""))
   ecr_name                  = coalesce(var.custom_ecr_name, "ecr-${var.project_name}")
+  ecs_name                  = coalesce(var.custom_ecs_name, "ecs-${var.project_name}")
 
   # ---------- BASE DEPENDENCIES ----------
-  need_vpc     = var.create_vpc || var.create_ec2 || var.create_rds || var.create_alb || var.create_nlb || var.peer_vpc_to != null
-  need_sg      = var.create_sg || var.create_ec2 || var.create_rds || var.create_alb
+
+  need_vpc = (
+    var.create_vpc ||
+    var.create_ec2 ||
+    var.create_rds ||
+    var.create_alb ||
+    var.create_nlb ||
+    var.create_ecs ||
+    var.peer_vpc_to != null
+  )
+
+  need_sg = (
+    var.create_sg ||
+    var.create_ec2 ||
+    var.create_rds ||
+    var.create_alb ||
+    var.create_ecs
+  )
+
   need_keypair = var.create_ec2
-  need_ec2     = var.create_ec2 || var.create_alb || var.create_nlb
-  need_amplify = var.create_amplify_app || var.create_alb
-  need_acm     = var.create_acm || var.create_alb
-  need_alb     = var.create_alb && local.create_ec2_final && local.create_amplify_final && local.create_acm_final
-  need_nlb     = var.create_nlb && local.create_ec2_final
+
+  need_ec2 = (
+    var.create_ec2 ||
+    var.create_alb ||
+    var.create_nlb
+  )
+
+  need_amplify = var.create_amplify_app
+
+  need_acm = (
+    (var.create_acm ||
+      var.create_alb ||
+    var.create_ecs) &&
+    var.enable_https
+  )
+
+  need_alb = (
+    var.create_alb ||
+    var.create_ecs
+  )
+
+  need_nlb = var.create_nlb
+
+  need_monitoring = (
+    var.create_ec2 ||
+    var.create_alb ||
+    var.create_ecs
+  )
+
+  need_ecr = (
+    var.create_ecr ||
+    var.create_ecs
+  )
+
+  need_ecs = var.create_ecs
 
   # ---------- FINAL CREATE FLAGS ----------
   create_s3_final         = var.create_s3_bucket
@@ -37,8 +85,9 @@ locals {
   create_nlb_final        = local.need_nlb
   create_rds_final        = var.create_rds
   create_vpc_peering      = var.peer_vpc_to != null
-  create_monitoring_final = local.create_ec2_final
-  create_ecr_final        = var.create_ecr
+  create_monitoring_final = local.need_monitoring
+  create_ecr_final        = local.need_ecr
+  create_ecs_final        = local.need_ecs
 
 
   # ---------- ICMP LOGIC ----------

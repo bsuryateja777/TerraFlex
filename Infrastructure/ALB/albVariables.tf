@@ -1,52 +1,53 @@
 variable "env" {
-  description = "Deployment environment (dev, prod, etc.)"
-  type        = string
-  default     = "dev"
+  type = string
 }
 
 variable "alb_name" {
-  description = "ALB name prefix"
-  type        = string
+  type = string
 }
 
 variable "security_group_ids" {
-  description = "List of security group IDs for ALB"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "vpc_id" {
-  description = "VPC ID where ALB will be deployed"
-  type        = string
+  type = string
 }
 
 variable "public_subnet_ids" {
-  description = "Public subnet IDs for ALB"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "certificate_arn" {
-  description = "ACM certificate ARN for HTTPS listener"
-  type        = string
+  type    = string
+  default = null
+}
+
+variable "target_type" {
+  type = string # "ec2" or "ecs"
+}
+
+variable "instance_id" {
+  type    = string
+  default = null
 }
 
 variable "frontend_port" {
-  description = "Port for frontend target group"
-  type        = number
-  default     = 80
+  type = number
 }
 
 variable "backend_port" {
-  description = "Port for backend target group"
-  type        = number
-  default     = 4000
+  type = number
 }
 
-variable "frontend_instance_id" {
-  description = "EC2/Amplify instance ID for frontend"
-  type        = string
+variable "enable_frontend" {
+  type = bool
 }
 
-variable "backend_instance_id" {
-  description = "EC2 instance ID for backend"
-  type        = string
+variable "enable_backend" {
+  type = bool
+}
+
+variable "enable_https" {
+  type = bool
 }

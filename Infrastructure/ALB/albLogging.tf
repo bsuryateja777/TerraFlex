@@ -3,7 +3,7 @@ resource "random_id" "this" {
 }
 
 resource "aws_s3_bucket" "this" {
-  bucket = "terraflex-alb-logs-${random_id.this.hex}"
+  bucket        = "terraflex-alb-logs-${random_id.this.hex}"
   force_destroy = true
 }
 

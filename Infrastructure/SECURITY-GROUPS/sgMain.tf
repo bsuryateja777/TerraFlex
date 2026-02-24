@@ -40,6 +40,12 @@ resource "aws_security_group" "this" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port       = 5000
+    to_port         = 5000
+    protocol        = "tcp"
+  }
+
   # Outbound - allow everything
   egress {
     from_port   = 0

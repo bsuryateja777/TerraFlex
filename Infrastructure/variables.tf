@@ -18,6 +18,12 @@ variable "enable_remote_backend_state" {
   description = "Whether to enable remote backend state storage."
 }
 
+variable "region" {
+  type        = string
+  default     = "east-us-2"
+  description = ""
+}
+
 # ------------------------
 # S3 Bucket Toggles & Info
 # ------------------------
@@ -268,6 +274,36 @@ variable "custom_alb_name" {
   description = "Optional custom name for ALB. Defaults to project_name."
 }
 
+variable "frontend_port" {
+  type    = number
+  default = 80
+}
+
+variable "backend_port" {
+  type    = number
+  default = 4000
+}
+
+variable "target_type" {
+  type    = string
+  default = "ec2"
+}
+
+variable "enable_frontend_alb" {
+  type    = bool
+  default = false
+}
+
+variable "enable_backend_alb" {
+  type    = bool
+  default = false
+}
+
+variable "enable_https" {
+  type    = bool
+  default = false
+}
+
 # ------------------------
 # NLB
 # ------------------------
@@ -380,4 +416,23 @@ variable "custom_ecr_name" {
   default     = null
   type        = string
   description = "optional custom name variable to name your ECR."
+}
+
+# ------------------------
+# ECS
+# ------------------------
+
+variable "create_ecs" {
+  default = false
+  type    = bool
+}
+
+variable "custom_ecs_name" {
+  default = null
+  type    = string
+}
+
+variable "container_image" {
+  default = "nginx:latest"
+  type    = string
 }

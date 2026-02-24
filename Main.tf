@@ -12,6 +12,8 @@ module "prd-remote-backend" {
 module "prd-first" {
   source = "./Infrastructure"
 
+  region = "east-us-2"
+
   project_name = "first"
   env          = "prd"
 
@@ -74,6 +76,12 @@ module "prd-first" {
 
   create_ecr      = true
   custom_ecr_name = "ecr-first"
+
+  create_ecs      = true
+  custom_ecs_name = "ecs-first"
+
+  enable_backend_alb  = true
+  enable_frontend_alb = true
 
 }
 
