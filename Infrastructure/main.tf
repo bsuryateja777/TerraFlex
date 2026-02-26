@@ -199,3 +199,13 @@ module "ecs" {
   container_image               = var.container_image
 
 }
+
+module "apprunner" {
+  source = "./APP-RUNNER"
+
+  count = local.create_app_runner_final ? 1 : 0
+
+  app_runner_name = local.app_runner_name
+  ecr_repo_url    = module.ecr[0].repository_url
+  container_port  = var.container_port
+}

@@ -436,3 +436,23 @@ variable "container_image" {
   default = "nginx:latest"
   type    = string
 }
+
+
+# ------------------------
+# APP RUNNER
+# ------------------------
+
+variable "create_app_runner" {
+  default = false
+  type    = bool
+}
+
+variable "custom_app_runner_name" {
+  default = null
+  type    = string
+}
+
+variable "container_port" {
+  type    = string
+  default = "4000"
+}

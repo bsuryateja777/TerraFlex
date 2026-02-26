@@ -15,6 +15,7 @@ locals {
   rds_name                  = coalesce(var.custom_rds_name, replace("rds-${var.project_name}", "-", ""))
   ecr_name                  = coalesce(var.custom_ecr_name, "ecr-${var.project_name}")
   ecs_name                  = coalesce(var.custom_ecs_name, "ecs-${var.project_name}")
+  app_runner_name           = coalesce(var.custom_app_runner_name, "app-${var.project_name}")
 
   # ---------- BASE DEPENDENCIES ----------
 
@@ -68,10 +69,13 @@ locals {
 
   need_ecr = (
     var.create_ecr ||
-    var.create_ecs
+    var.create_ecs ||
+    var.create_app_runner
   )
 
   need_ecs = var.create_ecs
+
+  need_app_runner = var.create_app_runner
 
   # ---------- FINAL CREATE FLAGS ----------
   create_s3_final         = var.create_s3_bucket
@@ -88,6 +92,7 @@ locals {
   create_monitoring_final = local.need_monitoring
   create_ecr_final        = local.need_ecr
   create_ecs_final        = local.need_ecs
+  create_app_runner_final = local.need_app_runner
 
 
   # ---------- ICMP LOGIC ----------

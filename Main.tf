@@ -74,15 +74,16 @@ module "prd-first" {
   # rds_instance_class    = "db.t3.micro"
   # rds_allocated_storage = "20"
 
-  create_ecr      = true
+  create_ecr      = false
   custom_ecr_name = "ecr-first"
 
-  create_ecs      = true
+  create_ecs      = false
   custom_ecs_name = "ecs-first"
 
-  enable_backend_alb  = true
-  enable_frontend_alb = true
+  enable_backend_alb  = false
+  enable_frontend_alb = false
 
+  create_app_runner = true
 }
 
 module "prd-second" {
@@ -117,5 +118,4 @@ module "prd-second" {
   create_ec2    = false
   ec2_public_ip = false
   ec2_os_type   = "linux"
-
 }
