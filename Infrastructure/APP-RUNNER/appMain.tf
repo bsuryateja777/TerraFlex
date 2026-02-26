@@ -2,6 +2,9 @@ resource "aws_apprunner_service" "app_service" {
   service_name = var.app_runner_name
 
   source_configuration {
+
+    auto_deployments_enabled = true 
+    
     authentication_configuration {
       access_role_arn = aws_iam_role.apprunner_role.arn
     }
