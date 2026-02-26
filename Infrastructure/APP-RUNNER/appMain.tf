@@ -4,7 +4,7 @@ resource "aws_apprunner_service" "app_service" {
   source_configuration {
 
     auto_deployments_enabled = true 
-    
+
     authentication_configuration {
       access_role_arn = aws_iam_role.apprunner_role.arn
     }
@@ -18,7 +18,6 @@ resource "aws_apprunner_service" "app_service" {
       }
     }
 
-    auto_deployments_enabled = false
   }
 
   instance_configuration {
