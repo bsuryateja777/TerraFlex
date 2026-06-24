@@ -10,6 +10,15 @@ variable "vpc_cidr" {
   type = string
 }
 
+variable "create_private_subnets" {
+  default = false
+  type = bool
+}
+
+variable "create_intra_subnets" {
+  type = bool
+  default = false
+}
 variable "azs" {
   type = list(string)
 }

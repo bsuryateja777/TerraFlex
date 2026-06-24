@@ -13,7 +13,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  count = length(var.private_subnet_cidrs)
+  count = var.create_private_subnets ? length(var.private_subnet_cidrs) : 0
 
   vpc_id            = aws_vpc.this.id
   cidr_block        = var.private_subnet_cidrs[count.index]
@@ -26,7 +26,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_subnet" "intra" {
-  count = length(var.intra_subnet_cidrs)
+  count = var.create_intra_subnets ? length(var.intra_subnet_cidrs) : 0
 
   vpc_id            = aws_vpc.this.id
   cidr_block        = var.intra_subnet_cidrs[count.index]

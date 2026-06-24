@@ -25,9 +25,16 @@ module "vpc" {
   vpc_name             = local.vpc_name
   vpc_cidr             = var.vpc_cidr
   azs                  = var.azs
+
+  
   public_subnet_cidrs  = var.public_subnet_cidrs
+
+  create_private_subnets = var.create_private_subnets
   private_subnet_cidrs = var.private_subnet_cidrs
+
+  create_intra_subnets   = var.create_intra_subnets
   intra_subnet_cidrs   = var.intra_subnet_cidrs
+  
   create_igw           = true
 }
 
@@ -37,16 +44,7 @@ module "vpc_peering" {
   count  = local.create_vpc_peering ? 1 : 0
 
   vpc_a_id = module.vpc[0].vpc_id
-  vpc_b_id = var.peer_vpc_to.vpc_id
-
-  vpc_a_cidr_block = var.vpc_cidr
-  vpc_b_cidr_block = var.peer_vpc_to.cidr_block
-
-  vpc_a_route_table_ids = module.vpc[0].all_route_table_ids
-  vpc_b_route_table_ids = var.peer_vpc_to.route_table_ids
-
-  vpc_a_name = local.vpc_name
-  vpc_b_name = var.peer_vpc_to.name
+  vpc_b_id = var.peer_vpc_to
 }
 
 

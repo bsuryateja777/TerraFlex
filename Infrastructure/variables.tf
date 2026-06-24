@@ -67,13 +67,8 @@ variable "azs" {
 }
 
 variable "peer_vpc_to" {
-  type = object({
-    name            = string
-    vpc_id          = string
-    cidr_block      = string
-    route_table_ids = list(string)
-  })
-  default     = null
+  type = string
+  default = null
   description = "Optional information about a VPC to peer with."
 }
 
@@ -83,7 +78,7 @@ variable "peer_vpc_to" {
 # ------------------------
 variable "create_public_subnets" {
   type        = bool
-  default     = false
+  default     = true
   description = "Create public subnets in the VPC."
 }
 

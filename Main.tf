@@ -20,12 +20,12 @@ module "prd-first" {
   create_s3_bucket      = false
   custom_s3_bucket_name = "prd-first"
 
-  create_vpc      = false
+  create_vpc      = true
   custom_vpc_name = "prd-first"
   vpc_cidr        = "192.168.0.0/22"
   azs             = ["us-east-2a", "us-east-2b"]
 
-  create_public_subnets = false
+  create_public_subnets = true
   public_subnet_cidrs   = ["192.168.0.0/26", "192.168.0.64/26"]
 
   create_private_subnets = false
@@ -36,12 +36,12 @@ module "prd-first" {
 
   //vpc peering is success
 
-  create_sg      = false
-  custom_sg_name = "prd-first-sg"
+  create_sg      = true
+  custom_sg_name = "first-sg"
 
-  create_ec2               = false
-  custom_ec2_instance_name = "prd-first-ec2"
-  ec2_public_ip            = false
+  create_ec2               = true
+  custom_ec2_instance_name = "first-ec2"
+  ec2_public_ip            = true
   ec2_os_type              = "linux"
 
   icmp_ingress_cidrs = ["192.168.4.0/22"] //CIDRs of peered VPC for ICMP rule in SG (ingress)
@@ -83,7 +83,7 @@ module "prd-first" {
   enable_backend_alb  = false
   enable_frontend_alb = false
 
-  create_app_runner = true
+  create_app_runner = false
 }
 
 module "prd-second" {
@@ -92,30 +92,26 @@ module "prd-second" {
   project_name = "second"
   env          = "prd"
 
-  create_vpc      = false
+  create_vpc      = true
   custom_vpc_name = "prd-second"
   vpc_cidr        = "192.168.4.0/22"
-  azs             = ["us-east-2a"]
+  azs             = ["us-east-2a", "us-east-2b"]
 
-  create_public_subnets = false
-  public_subnet_cidrs   = ["192.168.4.0/26"]
+  create_public_subnets = true
+  public_subnet_cidrs   = ["192.168.4.0/26", "192.168.4.64/26"]
 
   create_private_subnets = false
-  private_subnet_cidrs   = ["192.168.5.0/26"]
+  private_subnet_cidrs   = ["192.168.5.0/26", "192.168.5.64/26"]
 
   create_intra_subnets = false
-  intra_subnet_cidrs   = ["192.168.6.0/28"]
+  intra_subnet_cidrs   = ["192.168.6.0/28", "192.158.6.16/28"]
 
-  # peer_vpc_to = {
-  #   name            = "vpc-prd-first"
-  #   vpc_id          = module.prd-first.vpc_id
-  #   cidr_block      = "192.168.0.0/22"
-  #   route_table_ids = module.prd-first.all_route_table_ids
-  # }
+  peer_vpc_to = module.prd-first.vpc_id
+  icmp_ingress_cidrs = ["192.168.0.0/22"] //CIDRs of peered VPC for ICMP rule in SG (ingress)
 
-  create_sg = false
+  create_sg = true
 
-  create_ec2    = false
-  ec2_public_ip = false
+  create_ec2    = true
+  ec2_public_ip = true
   ec2_os_type   = "linux"
 }
